@@ -76,3 +76,5 @@ Ik ben over mijn eindresultaat niet tevreden, ik had van tevoren gehoopt dat ik 
 Dit zijn behalve 3D dingen die CSS heel krachtig maken en normaal zou ik waarschijnlijk JavaScript gebruikt hebben om diezelfde functionaliteit te gebruiken, maar zoals ik bij Browser Tech geleerd heb is dat niet de ultieme oplossing, omdat niet iedereen JavaScript ondersteund. Ik denk dat ondanks ik mijn resultaat niet gehaald heb om iets moois neer te zetten, ik wel een hoop kennis over CSS heb opgedaan, waardoor ik het zeker vaker ga gebruiken. 
 
 Alleen liever nooit meer om iets in 3D te maken ;)
+
+De browser waarin ik dit heb gemaakt is Chrome

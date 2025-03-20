@@ -1,0 +1,559 @@
+body {
+    margin: 0;
+    
+    --perspective: 150vmin;
+    --roomwidth: 60vmin;
+    --roomlength: 60vmin;
+    --roomheight: 40vmin;
+
+    --shadowside-filter-right: brightness(80%);
+    --shadowside-filter-left: brightness(90%);
+
+    --color-cold: #22f;
+    --color-hot: #f22;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(75, 121, 230);
+}
+
+main {
+    perspective: var(--perspective);
+    width: 200vw;
+    height: 200vh;
+
+    /* 3D container */
+    > div {
+        transform-style: preserve-3d;
+        position: sticky;
+        top: 60%;
+        left: 40%;
+        width: var(--roomwidth);
+        height: var(--roomheight);
+        transform: rotateX(-25deg) rotateY(-45deg);
+
+        * {
+            transform-style: preserve-3d;
+        }
+
+        > div {
+            position: absolute;
+        }
+
+        /* floor */
+        > div:nth-of-type(1) {
+            width: var(--roomwidth);
+            height: var(--roomlength);
+            transform-origin: top;
+            transform: 
+                rotateX(90deg);
+            background-color: red;
+            background-image: url(https://www.aventetile.com/cdn/shop/articles/Classic_Toscano_1024x1024.jpg?v=1496779033);
+            background-size: 20%;
+        }
+
+        /* left wall */
+        > div:nth-of-type(2) {
+            width: var(--roomlength);
+            height: var(--roomheight);
+            transform-origin: left;
+            transform:
+                rotateY(-90deg)
+                translateY(calc(var(--roomheight)*-1));
+            background-color: blue;
+        }
+
+        /* right wall */
+        > div:nth-of-type(3) {
+            width: var(--roomwidth);
+            height: var(--roomheight);
+            transform:
+                translateY(calc(var(--roomheight)*-1));
+            background-color: green;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* adding tiles to the walls */
+        > div:nth-of-type(2),
+        > div:nth-of-type(3) {
+            background-image: url("https://media.istockphoto.com/id/1248324372/vector/realistic-ceramic-tiles.jpg?s=612x612&w=0&k=20&c=PJKglC0uEFrUXMTfSDbad55Rb8hT2mFErtw4vV_9Fes=");
+            background-size: 50%;
+        }
+
+        /* sink */
+        > div:nth-of-type(4) {
+            position: absolute;
+            transform: 
+                translateX(32vmin)
+                translateY(-8vmin);
+        
+            /* bowl */
+            > div {
+                /* left side */
+                section:nth-of-type(1) {
+                    --block-width: 2vmin;
+                    --block-depth: 10vmin;
+                    --block-height: 6vmin;
+        
+                    --distance-left-wall: 0;
+                    --distance-right-wall: 0;
+                    --distance-bottom: 0;
+                }
+        
+                /* back side */
+                section:nth-of-type(2) {
+                    --block-width: 18vmin;
+                    --block-depth: 2.5vmin;
+                    --block-height: 6vmin;
+        
+                    --distance-left-wall: 0;
+                    --distance-right-wall: 0;
+                    --distance-bottom: 0;
+                }
+        
+                /* front side */
+                section:nth-of-type(3) {
+                    --block-width: 18vmin;
+                    --block-depth: 2vmin;
+                    --block-height: 6vmin;
+        
+                    --distance-left-wall: 0vmin;
+                    --distance-right-wall: 8vmin;
+                    --distance-bottom: 0vmin;
+                }
+        
+                /* right side */
+                section:nth-of-type(4) {
+                    --block-width: 2vmin;
+                    --block-depth: 10vmin;
+                    --block-height: 6vmin;
+        
+                    --distance-left-wall: 16vmin;
+                    --distance-right-wall: 0vmin;
+                    --distance-bottom: 0vmin;
+                }
+        
+                /* bottom side */
+                section:nth-of-type(5) {
+                    --block-width: 18vmin;
+                    --block-depth: 10vmin;
+                    --block-height: 1vmin;
+        
+                    --distance-left-wall: 0;
+                    --distance-right-wall: 0;
+                    --distance-bottom: 0;
+                }
+            }
+        
+            /* tap base */
+            > section:nth-of-type(1) {
+                --block-width: 1vmin;
+                --block-depth: 1vmin;
+                --block-height: 2vmin;
+        
+                --distance-left-wall: 9vmin;
+                --distance-right-wall: 1vmin;
+                --distance-bottom: 6vmin;
+            }
+        
+            /* tap top */
+            > section:nth-of-type(2) {
+                --block-width: 1vmin;
+                --block-depth: 2.5vmin;
+                --block-height: .5vmin;
+        
+                --distance-left-wall: 9vmin;
+                --distance-right-wall: 1vmin;
+                --distance-bottom: 8vmin;
+            }
+        
+            /* water stream */
+            > section:nth-of-type(3) {
+                --block-width: .5vmin;
+                --block-depth: .5vmin;
+                --block-height: 0vmin;
+        
+                --distance-left-wall: 9.25vmin;
+                --distance-right-wall: 2.75vmin;
+                --distance-bottom: calc(8vmin - var(--block-height));
+            }
+        
+            /* water in bowl */
+            > section:nth-of-type(4) {
+                --block-width: 14vmin;
+                --block-depth: 5.5vmin;
+                --block-height: 0vmin;
+        
+                --distance-left-wall: 2vmin;
+                --distance-right-wall: 2.5vmin;
+                --distance-bottom: 0;
+        
+                --cold-percentage: 0;
+                --hot-percentage: 0;
+            }
+        
+            /* cold */
+            > label:nth-of-type(1) {
+                transform: 
+                    translateY(-6vmin)
+                    translateX(5vmin)
+                    translateZ(1vmin);
+        
+                > section:nth-of-type(1) {
+                    --block-width: .5vmin;
+                    --block-depth: .5vmin;
+                    --block-height: 1vmin;
+        
+                    --distance-left-wall: 0vmin;
+                    --distance-right-wall: 0vmin;
+                    --distance-bottom: 0vmin;
+                }
+        
+                > section:nth-of-type(2) {
+                    --block-width: .5vmin;
+                    --block-depth: 1vmin;
+                    --block-height: .25vmin;
+        
+                    --distance-left-wall: 0vmin;
+                    --distance-right-wall: 0vmin;
+                    --distance-bottom: 1vmin;
+        
+                    --color: var(--color-cold);
+                }
+            }
+        
+            /* cold */
+            > label:nth-of-type(2) {
+                transform: 
+                    translateY(-6vmin)
+                    translateX(13vmin)
+                    translateZ(1vmin);
+        
+                > section:nth-of-type(1) {
+                    --block-width: .5vmin;
+                    --block-depth: .5vmin;
+                    --block-height: 1vmin;
+        
+                    --distance-left-wall: 0vmin;
+                    --distance-right-wall: 0vmin;
+                    --distance-bottom: 0vmin;
+                }
+        
+                > section:nth-of-type(2) {
+                    --block-width: .5vmin;
+                    --block-depth: 1vmin;
+                    --block-height: .25vmin;
+        
+                    --distance-left-wall: 0vmin;
+                    --distance-right-wall: 0vmin;
+                    --distance-bottom: 1vmin;
+        
+                    --color: var(--color-hot);
+                }
+            }
+            /* this is needed to make everything in the label 3D */
+            label {display: block;}
+        }
+    }
+
+}
+
+/* based on cuboid, here's a page explaining it https://dev.to/jh3y/css-in-3d-learning-to-think-in-cubes-instead-of-boxes-4ank */
+/* ------------- */
+/* --- BLOCK --- */
+/* ------------- */
+section {
+    position: absolute;
+
+    /* position */
+    transform: 
+        translateX(var(--distance-left-wall))
+        translateZ(var(--distance-right-wall))
+        translateY(calc(-1*var(--distance-bottom)));
+
+    /* dimensions */
+    --width: var(--block-width);
+    --depth: var(--block-depth);
+    --height: var(--block-height);
+
+    > div {
+        position: absolute;
+
+        /* common style */
+        box-sizing: border-box;
+        background-color: var(--color, #fff);
+    }
+
+    /* front */
+    > div:nth-of-type(1),
+    > div:nth-of-type(4) {
+        width: var(--width);
+        height: var(--height);
+        transform: translateY(calc(-1*var(--height)));
+    }
+
+    /* back */
+    > div:nth-of-type(4) {
+        transform: 
+            translateY(calc(-1*var(--height)))
+            translateZ(var(--depth));
+        filter: var(--shadowside-filter-left);
+    }
+
+    /* left-side */
+    > div:nth-of-type(2),
+    > div:nth-of-type(5) {
+        width: var(--depth);
+        height: var(--height);
+        transform-origin: left;
+        transform: 
+            rotateY(90deg)
+            translateX(calc(-1*var(--depth)))
+            translateY(calc(-1*var(--height)));
+    }
+
+    /* right-side */
+    > div:nth-of-type(5) {
+        transform: 
+            rotateY(90deg)
+            translateX(calc(-1*var(--depth)))
+            translateY(calc(-1*var(--height)))
+            translateZ(var(--width));
+        filter: var(--shadowside-filter-right);
+    }
+
+    /* top */
+    > div:nth-of-type(3),
+    > div:nth-of-type(6) {
+        width: var(--width);
+        height: var(--depth);
+        transform-origin: top;
+        transform: 
+            translateY(calc(-1*var(--height)))
+            translateZ(var(--depth))
+            rotateX(-90deg);
+    }
+
+    /* bottom */
+    > div:nth-of-type(6) {
+        transform: 
+            translateZ(var(--depth))
+            rotateX(-90deg);
+    }
+}
+
+/* -------------------- */
+/* animations and logic */
+/* -------------------- */
+html:has(input:nth-of-type(1):checked) {--cold-on: true;}
+html:has(:not(input:nth-of-type(1):checked)) {--cold-off: true;}
+html:has(input:nth-of-type(2):checked) {--hot-on: true;}
+html:has(:not(input:nth-of-type(2):checked)) {--hot-off: true;}
+
+/* COLD FAUCET */
+@container style(--cold-off:true) { /* off */
+    /* close faucet */
+    label:nth-of-type(1) section:nth-of-type(2) {
+        animation: .5s --close-faucet forwards;
+    }
+}
+@container style(--cold-on:true) { /* on */
+    /* open faucet */
+    label:nth-of-type(1) section:nth-of-type(2) {
+        animation: .5s --open-faucet forwards;
+    }
+    main > div > div:nth-of-type(4) {
+        > section:nth-of-type(3) { /* water stream */
+            --color: var(--color-cold);
+        }
+        > section:nth-of-type(4) { /* water in sink */
+            --color: var(--color-cold) !important;
+        }
+    }
+    /* change title color */
+    h1 {
+        --background-color: var(--color-cold);
+    }
+}
+
+/* HOT FAUCET */
+@container style(--hot-off:true) { /* off */
+    /* close faucet */
+    label:nth-of-type(2) section:nth-of-type(2) {
+        animation: .5s --close-faucet forwards;
+    }
+}
+@container style(--hot-on:true) { /* on */
+    /* open faucet */
+    label:nth-of-type(2) section:nth-of-type(2) {
+        animation: .5s --open-faucet forwards;
+    }
+    main > div > div:nth-of-type(4) {
+        > section:nth-of-type(3) { /* water stream */
+            --color: var(--color-hot);
+        }
+        > section:nth-of-type(4) { /* water in sink */
+            --color: var(--color-hot) !important;
+        }
+    }
+    /* change title color */
+    h1 {
+        --background-color: var(--color-hot);
+    }
+}
+
+/* both faucets are off */
+@container style(--cold-off:true) and style(--hot-off:true) {
+    main > div > div:nth-of-type(4) > section:nth-of-type(4) { /* water in sink */
+        animation: --empty-sink 5s linear forwards;
+
+        /* if i found a way to save the color of the water when filling up, i would put it here */
+        --color: color-mix(in oklch, var(--color-cold), var(--color-hot));
+    }
+}
+
+/* any or both faucets are on */
+@container style(--cold-on:true) or style(--hot-on:true) {
+    main > div > div:nth-of-type(4) {
+        > section:nth-of-type(3) { /* water stream */
+            animation: --water-stream 5s linear;
+        }
+
+        > section:nth-of-type(4) { /* water in sink */
+            animation: --fill-sink 5s forwards;
+        }
+    }
+}
+
+/* both faucets are on */
+@container style(--cold-on:true) and style(--hot-on:true) {
+    main > div > div:nth-of-type(4) {
+        > section:nth-of-type(3) { /* water stream */
+            --color: color-mix(in oklch, var(--color-cold), var(--color-hot));
+        }
+
+        > section:nth-of-type(4) { /* water in sink */
+            --color: color-mix(in oklch, var(--color-cold), var(--color-hot)) !important;
+        }
+    }
+    /* change title color */
+    h1 {
+        --background-color: color-mix(in oklch, var(--color-cold), var(--color-hot));
+    }
+}
+
+
+
+
+
+input {
+    display: none;
+}
+
+
+/* based on chatGPT */
+@property --block-height {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0vmin;
+}
+@property --distance-bottom {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0vmin;
+}
+
+/* animations */
+@keyframes --water-stream {
+    0% { --block-height: 0vmin; }
+    10%, 100% { --block-height: 7vmin; }
+}
+@keyframes --fill-sink {
+    0%, 10% { --block-height: 0vmin; }
+    100% { --block-height: 4vmin; }
+}
+@keyframes --empty-sink {
+    0% { --block-height: 4vmin; }
+    100% { --block-height: 0vmin; }
+}
+@keyframes --open-faucet {
+    0% {transform: translateY(-1vmin) rotateX(0);}
+    100% {transform: translateY(-1vmin) rotateX(30deg);}
+}
+@keyframes --close-faucet {
+    0% {transform: translateY(-1vmin) rotateX(30deg);}
+    100% {transform: translateY(-1vmin) rotateX(0);}
+}
+
+
+/* ----------- */
+/* CUSTOM FONT */
+/* ----------- */
+@font-face {
+    font-family: 'Roboto Flex';
+    src: url('/fonts/RobotoFlex.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1 {
+    font-family: 'Roboto Flex';
+    color: var(--background-color, white);
+    -webkit-text-stroke: 2px black;
+    paint-order: stroke;
+    font-variation-settings: 'GRAD' -200;
+    letter-spacing: 2px;
+    margin: 0;
+    width: fit-content;
+
+    span {
+        --ytlc: 416;
+        animation: --font-animation-ytlc .2s infinite alternate;
+        font-variation-settings: 'YTLC' var(--ytlc);
+    }
+}
+
+h1:hover {
+    --ytas: 649;
+    animation: --font-animation-ytas 1s forwards;
+    font-variation-settings: 
+        'YTAS' var(--ytas),
+        'GRAD' -200;
+}
+
+@keyframes --font-animation-xopq {
+    0% {--xopq: 27;}
+    100% {--xopq: 175;}
+}
+
+@property --xopq {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 27;
+}
+
+@keyframes --font-animation-ytlc {
+    0% {--ytlc: 416;}
+    100% {--ytlc: 500;}
+}
+
+@property --ytlc {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 416;
+}
+
+@keyframes --font-animation-ytas {
+    0% {--ytas: 750;}
+    100% {--ytas: 854;}
+}
+
+@property --ytas {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 750;
+}
